@@ -1,0 +1,95 @@
+﻿@model Blog.Models.HomeViewModel
+
+@{
+    ViewBag.Title = "Home";
+}
+
+<div class="container">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="nav navbar-default col-sm-2 mt-15 pl-10 pb-10 disappearing">
+            <h4 class="tcw mt-30"><span class="small">Top @Model.Categories.Count </span>Categories</h4>
+            <ul class="nav navbar-default">
+                @foreach (var category in Model.Categories)
+                {
+                    <li>@Html.ActionLink($"{category.Name} ({category.Articles.Count})", "List", "Article", new { @categoryId = category.Id }, null)</li>
+                }
+            </ul>
+            @Html.ActionLink("See All >>", "ListCategories")
+
+            <h4 class="tcw mt-30"><span class="small">Top @Model.Tags.Count </span>Tags</h4>
+            <ul class="nav navbar-default">
+                @foreach (var tag in Model.Tags)
+                {
+                    <li>@Html.ActionLink($"{tag.Name} ({tag.Articles.Count})", "List", "Article", new { @tagId = tag.Id }, null)</li>
+                }
+            </ul>
+            @Html.ActionLink("See All >>", "All", "Tag")
+            <hr />
+            <ul class="mt-15">
+                <li>
+                    @Html.ActionLink("All Posts", "List", "Article", null, null)
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-sm-10">
+            <!-- Newest Articles -->
+            <h2 class="text-center">Newest Articles</h2>
+            @foreach (var article in Model.NewestArticles)
+            {
+                <div class="col-sm-6 mb-50">
+                    <article>
+                        <header>
+                            <h3>
+                                @Html.ActionLink(@article.Title, "Details", "Article", new { @id = article.Id }, null)
+                            </h3>
+                        </header>
+                        <p>
+                            @article.Summary
+                        </p>
+                        <footer class="author">
+                            <small class="pull-left">
+                                @article.DateCreated.ToString("dd.MM.yyyy")
+                            </small>
+                            <small class="pull-right">
+                                --author @Html.ActionLink(article.Author.FullName, "List", "Article", new { @authorId = article.Author.Id }, null)
+                            </small>
+                        </footer>
+                    </article>
+                </div>
+            }
+        </div>
+        <div class="col-sm-10">
+            <!-- Most Viewed Articles -->
+            <h2 class="text-center">Most Viewed</h2>
+            @foreach (var article in Model.MostViewedArticles)
+            {
+                <div class="col-sm-6 mb-50">
+                    <article>
+                        <header>
+                            <h3>
+                                @Html.ActionLink(@article.Title, "Details", "Article", new { @id = article.Id }, null)
+                            </h3>
+                        </header>
+                        <p>
+                            @article.Summary
+                        </p>
+                        <footer class="author">
+                            <small class="pull-left">
+                                @article.DateCreated.ToString("dd.MM.yyyy")
+                            </small>
+                            <small class="pull-right">
+                                --author @Html.ActionLink(article.Author.FullName, "List", "Article", new { @authorId = article.Author.Id }, null)
+                            </small>
+                        </footer>
+                    </article>
+                </div>
+            }
+        </div>
+
+    </div>
+
+</div>
+<hr />
+

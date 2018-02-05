@@ -1,0 +1,74 @@
+﻿@model Blog.Models.ArticleViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="container">
+    <div class="well">
+        <h2>Edit Article</h2>
+        @using (Html.BeginForm("Edit", "Article", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+
+            @Html.HiddenFor(m => m.Id)
+            @Html.HiddenFor(m => m.AuthorId)
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Title, new { @class = "control-label col-sm-4" })
+                <div class="col-sm-4">
+                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Content, new { @class = "control-label col-sm-4" })
+                <div class="col-sm-4">
+                    @Html.TextAreaFor(m => m.Content, new { @class = "form-control", @rows = "7" })
+                </div>
+            </div>
+
+            if (Model.ImagePath != null)
+            {
+                <div class="form-group">
+                    <div class="checkbox col-sm-offset-4 col-sm-4">
+                        <label>
+                            @Html.CheckBoxFor(m => m.DeleteImage) Delete Image
+                        </label>
+                    </div>
+                </div>
+            }
+
+            <div class="form-group">
+                @Html.Label("image", @Model.ImagePath != null ? "Change Image" : "Image", new { @class = "control-label col-sm-4" })
+                <div class="col-sm-4">
+                    @Html.TextBox("image", null, new { type = "file", @class = "form-control col-sm-4" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.CategoryId, new { @class = "control-label col-sm-4" })
+                <div class="dropdown col-sm-4">
+                    @Html.DropDownListFor(m => m.CategoryId,
+                        new SelectList(Model.Categories, "Id", "Name", Model.CategoryId),
+                        new { @class = "btn btn-info col-sm-12" })
+                </div>
+            </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Tags, new { @class = "control-label col-sm-4" })
+                        <div class="col-sm-4">
+                            @Html.TextBoxFor(m => m.Tags, new { @class = "form-control col-sm-4" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-4">
+                            @Html.ActionLink("Cancel", "Details", "Article", new { id = Model.Id }, new { @class = "btn btn-default" })
+                            <input type="submit" value="Edit" class="btn btn-success" />
+                        </div>
+                    </div>
+        }
+    </div>
+</div>
