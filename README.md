@@ -1,3 +1,2 @@
 # CSharpMore
-csharp
-C#,JavaScript,SQL,OOP
+C#,JavaScript,OOP,Databases,Entity Framework
