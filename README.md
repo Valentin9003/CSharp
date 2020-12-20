@@ -1,4 +1,4 @@
 # CSharpMore
-C#,JavaScript,OOP,Databases,Entity Framework
+C#,JavaScript,OOP,SQL Databases,Entity Framework
 
 Prepared Valentin Stoev
